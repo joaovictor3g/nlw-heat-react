@@ -1,12 +1,18 @@
 import { LoginBox } from "../../components/LoginBox";
 import { MessageList } from "../../components/MessageList";
-import { Main } from "./styles";
+import { SendMessageForm } from "../../components/SendMessageForm";
+import { useAuth } from "../../contexts/AuthContext";
+import { Main, Wrapper } from "./styles";
 
 export function Home() {
+  const { user } = useAuth();
+
   return(
-    <Main>
+    <Main hasSignedUser={!!user}>
+     <Wrapper>
       <MessageList />
-      <LoginBox />
+      { !!user ? <SendMessageForm /> : <LoginBox /> }
+     </Wrapper>
     </Main>
   );
 }
